@@ -1,10 +1,9 @@
 'use strict';
 
 /* Environment variables */
-require('dotenv').config(); // load from .env
 const PORT = process.env.PORT || 3000;
-// TODO: Don't forget to set your own conString in .env
-const DATABASE_URL = process.env.DATABASE_URL;
+// TODO: Don't forget to set your own conString!
+const DATABASE_URL = 'postgres://localhost:5432/kilovolt';
 
 /* Required Dependencies */
 const pg = require('pg');
@@ -31,7 +30,10 @@ app.use(express.static('./public'));
 // (R)ead list of articles
 app.get('/articles', (request, response) => {
     client.query(`
-        SELECT * FROM articles
+        SELECT *, 
+            articles.published_on as "publishedOn",
+            authors.author_url as "authorUrl"
+        FROM articles
         INNER JOIN authors
         ON articles.author_id=authors.author_id;
     `)
@@ -100,6 +102,7 @@ app.put('/articles/:id', (request, response) => {
             body.authorUrl,
             body.author_id
         ]),
+
         client.query(`
                 UPDATE articles
                 SET author_id=$1, title=$2, category=$3, published_on=$4, body=$5
@@ -130,7 +133,9 @@ app.delete('/articles/:id', (request, response) => {
 
 // (D)estroy ALL articles
 app.delete('/articles', (request, response) => {
-    client.query(`DELETE FROM articles`)
+    client.query(
+        `DELETE FROM articles`
+    )
         .then(() => response.send('Full Delete Complete'))
         .catch(console.error);
 });

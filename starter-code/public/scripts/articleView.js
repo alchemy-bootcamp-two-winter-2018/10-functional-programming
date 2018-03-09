@@ -1,11 +1,11 @@
 'use strict';
-var app = app || {};
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' and 'var app...' declararions, in an IIFE.
+// TODO: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'articleView' object to 'module'.
-// Where the IIFE is invoked, pass in the global 'app' object that is defined above.
-// Keep in mind that all references to 'Article' in this file now need to be renamed to 'app.Article'. There are not separate instructions for those; you'll need to debug and find them on your own.
+// Where the IIFE is invoked, pass in the global 'app' object via `(window.app || window.app = {})`.
+// Keep in mind that all references to 'Article' in this file now need to be renamed to 'app.Article'. 
+// There are not separate instructions for those; you'll need to debug and find them on your own.
 let articleView = {};
 
 articleView.populateFilters = () => {

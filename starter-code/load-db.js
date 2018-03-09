@@ -1,6 +1,4 @@
 'use strict';
-const dotenv = require('dotenv');
-dotenv.config();
 
 const pg = require('pg');
 const Client = pg.Client;
@@ -9,7 +7,8 @@ const util = require('util');
 const promisify = util.promisify;
 const readFile = promisify(fs.readFile);
 
-const client = new Client(process.env.DATABASE_URL);
+const DATABASE_URL = 'postgres://localhost:5432/kilovolt';
+const client = new Client(DATABASE_URL);
 client.connect();
 client.on('error', err => {
     console.error(err);

@@ -25,7 +25,7 @@
     "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
     "indent": ["error", 4],
     "space-infix-ops": ["error", {"int32Hint": false}],
-    "no-trailing-spaces": "warn",
+    "no-trailing-spaces": ["warn", { "skipBlankLines": true, "ignoreComments": true }],
     "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
     "no-mixed-spaces-and-tabs": "warn",
 
