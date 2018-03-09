@@ -45,7 +45,7 @@
         rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
         
         */
-        rawData.map(articleObject => new Article(articleObject));
+        Article.articles = rawData.map(articleObject => new Article(articleObject));
     };
 
     Article.fetchAll = callback => {
@@ -59,7 +59,7 @@
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map().reduce();
+        return Article.all.map(this.articles).reduce(this.articles);
     };
 
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
