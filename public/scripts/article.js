@@ -29,7 +29,7 @@
     Article.all = [];
 
     Article.prototype.toHtml = function() {
-        this.template(this);
+        return this.template(this);
     };
 
     Article.loadAll = rawData => {
