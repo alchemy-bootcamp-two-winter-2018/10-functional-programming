@@ -41,6 +41,7 @@
         rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
         */
         Article.all = rawData.map(articleObject => new Article(articleObject));
+        console.log (Article.allAuthors());
     };
 
     Article.fetchAll = callback => {
@@ -63,10 +64,13 @@
     };
     
 
-    // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
+    // TODOne: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
+    // Thank you to https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates for pointing me in a useful direction
     Article.allAuthors = () => {
-        return Article.all.map().reduce();
+        return Article.all
+            .map(articleObject => articleObject.author)
+            .reduce((acc, num) => acc.includes(num) ? acc : acc.concat([num]), []);
     };
 
     Article.numWordsByAuthor = () => {
