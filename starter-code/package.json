@@ -12,6 +12,7 @@
     "body-parser": "^1.15.2",
     "dotenv": "^5.0.1",
     "express": "^4.13.3",
+    "nodemon": "^1.17.1",
     "pg": "^6.1.2"
   },
   "devDependencies": {
