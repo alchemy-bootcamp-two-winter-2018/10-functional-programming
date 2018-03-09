@@ -96,7 +96,7 @@
         let article;
         $('#articles').empty();
 
-        article = new Article({
+        article = new app.Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
@@ -111,7 +111,7 @@
 
     articleView.submit = event => {
         event.preventDefault();
-        const article = new Article({
+        const article = new app.Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
