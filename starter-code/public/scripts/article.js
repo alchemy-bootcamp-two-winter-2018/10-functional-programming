@@ -54,10 +54,10 @@
             });
     };
 
-    // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
+    // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map().reduce();
+        return Article.all.map(articles => articles.body).reduce((acc,body) => acc + body.match(/\b\w+/g).length,0);
     };
 
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
