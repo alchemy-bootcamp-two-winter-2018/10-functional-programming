@@ -80,6 +80,11 @@
             // TODO: Transform each author string into an object with properties for:
             //    1. the author's name, 
             //    2. the total number of words across all articles written by the specified author.
+            return {
+                name: author,
+                wordCount: Article.all.filter(article => article.author === author)
+                    .map(article => article.body.match(/\b\w+/g).length).reduce((sum, num) => sum + num)
+            };
 
             // HINT: This .map() should be set up to return an object literal with two properties.
             // Inside the map, the first property should be pretty straightforward, but you will 
