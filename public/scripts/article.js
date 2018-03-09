@@ -24,26 +24,24 @@
         this.template = Handlebars.compile($('#article-template').text());
     }
 
-    Article.all = [];
-
     Article.prototype.toHtml = function() {
-        this.template(this);
+        return this.template(this);
     };
 
     Article.loadAll = rawData => {
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO: Refactor this .forEach() code, by using a .map() call instead, 
-    // since what we are trying to accomplish is the transformation of one collection 
-    // into another. Remember that we can set variables equal to the result of functions. 
-    // So if we set a variable equal to the result of a .map(), it will be our transformed array.
-    // There is **no** need to push to anything!
+        // TODO: Refactor this .forEach() code, by using a .map() call instead, 
+        // since what we are trying to accomplish is the transformation of one collection 
+        // into another. Remember that we can set variables equal to the result of functions. 
+        // So if we set a variable equal to the result of a .map(), it will be our transformed array.
+        // There is **no** need to push to anything!
 
-    /* OLD forEach():
-
-    rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
-
-    */
+        /* OLD forEach():
+        rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
+        */
+        //    array1.map(x => x * 2);
+        Article.all = rawData.map(articleObject => new Article(articleObject));
 
     };
 
