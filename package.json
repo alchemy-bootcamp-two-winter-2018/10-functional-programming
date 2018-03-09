@@ -4,7 +4,8 @@
   "description": "As we now complete our MVC conversation, we can refactor our app to use good MVC separation of concerns.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Code Fellows",
   "license": "ISC",
@@ -16,5 +17,13 @@
   },
   "devDependencies": {
     "eslint": "^4.18.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jklipton/10-functional-programming.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jklipton/10-functional-programming/issues"
+  },
+  "homepage": "https://github.com/jklipton/10-functional-programming#readme"
 }
