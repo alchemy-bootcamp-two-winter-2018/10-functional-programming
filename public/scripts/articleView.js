@@ -6,7 +6,7 @@
 // Where the IIFE is invoked, pass in the global 'app' object via `(window.app || window.app = {})`.
 // Keep in mind that all references to 'Article' in this file now need to be renamed to 'app.Article'. 
 // There are not separate instructions for those; you'll need to debug and find them on your own.
-let articleView = {};
+const articleView = {};
 
 articleView.populateFilters = () => {
     $('article').each(function() {
@@ -90,10 +90,9 @@ articleView.initNewArticlePage = () => {
 };
 
 articleView.create = () => {
-    let article;
     $('#articles').empty();
 
-    article = new Article({
+    const article = new Article({
         title: $('#article-title').val(),
         author: $('#article-author').val(),
         authorUrl: $('#article-author-url').val(),
