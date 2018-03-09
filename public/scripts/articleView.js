@@ -9,6 +9,8 @@
 
 (function (module) {
 
+    const Article = module.Article;
+
     let articleView = {};
 
     articleView.populateFilters = () => {
@@ -96,7 +98,7 @@
         let article;
         $('#articles').empty();
 
-        article = new app.Article({
+        article = new Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
@@ -111,7 +113,7 @@
 
     articleView.submit = event => {
         event.preventDefault();
-        const article = new app.Article({
+        const article = new Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
@@ -127,7 +129,7 @@
     };
 
     articleView.initIndexPage = () => {
-        app.Article.all.forEach(a => $('#articles').append(a.toHtml()));
+        Article.all.forEach(a => $('#articles').append(a.toHtml()));
 
         articleView.populateFilters();
         articleView.handleCategoryFilter();
@@ -140,14 +142,15 @@
     articleView.initAdminPage = () => {
         // TODO: Call the Handlebars .compile() method, which will return a function for you to use where needed.
         // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since we are then calling "template" below.
+        const template = 
 
         // REVIEW: We use .forEach() here because we are relying on the side-effects of the callback function: appending to the DOM.
         // The callback is not required to return anything.
-        app.Article.numWordsByAuthor().forEach(stat => $('.author-stats').append(template(stat)));
+        Article.numWordsByAuthor().forEach(stat => $('.author-stats').append(template(stat)));
 
         // REVIEW: Simply write the correct values to the page:
-        $('#blog-stats .articles').text(app.Article.all.length);
-        $('#blog-stats .words').text(app.Article.numWordsAll());
+        $('#blog-stats .articles').text(Article.all.length);
+        $('#blog-stats .words').text(Article.numWordsAll());
     };
 
     module.articleView = articleView;
