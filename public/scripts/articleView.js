@@ -149,5 +149,7 @@
         $('#blog-stats .articles').text(app.Article.all.length);
         $('#blog-stats .words').text(app.Article.numWordsAll());
     };
+
+    module.articleView = articleView;
     
 })(window.app || (window.app = {}));
