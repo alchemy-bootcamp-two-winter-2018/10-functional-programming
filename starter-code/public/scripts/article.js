@@ -28,7 +28,7 @@
     Article.all = [];
 
     Article.prototype.toHtml = function() {
-        this.template(this);
+        return this.template(this);
     };
 
     Article.loadAll = rawData => {
@@ -56,13 +56,11 @@
             });
     };
         
-    // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
+    // TODONE: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map(article => article.body).reduce((numWords, wordCount) => {
-            wordCount += numWords.match(/\b\w+/g).length;
-            console.log(wordCount);
-        });
+        return Article.all.map(article => article.body.match(/\b\w+/g).length)
+            .reduce((numWords, wordCount) => numWords + wordCount);
     };
 
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
