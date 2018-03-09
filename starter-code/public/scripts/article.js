@@ -46,10 +46,10 @@ Article.loadAll = rawData => {
 };
 
 Article.fetchAll = callback => {
-    $.get('/articles')
-        .then(results => {
-            Article.loadAll(results);
-            callback();
+    $.getJSON('/articles')
+        .then(rawData => {
+            Article.all = rawData.map(rawData => new Article(rawData));
+            if (callback) callback();
         });
 };
 
