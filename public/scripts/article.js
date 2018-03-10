@@ -53,7 +53,6 @@
 
     // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
-    //    array1.map(x => x * 2);
     
     Article.numWordsAll = () => {
         return Article.all
