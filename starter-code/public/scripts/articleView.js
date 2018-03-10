@@ -1,13 +1,14 @@
 'use strict';
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
+// TODOne: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'articleView' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object via `(window.app || window.app = {})`.
 // Keep in mind that all references to 'Article' in this file now need to be renamed to 'app.Article'. 
 // There are not separate instructions for those; you'll need to debug and find them on your own.
 (function(module) {
-    let articleView = {};
+    const articleView = {};
+    const Article = module.Article;
 
     articleView.populateFilters = () => {
         $('article').each(function() {
@@ -91,10 +92,9 @@
     };
 
     articleView.create = () => {
-        let article;
         $('#articles').empty();
 
-        article = new Article({
+        const article = new Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
@@ -137,10 +137,12 @@
 
     articleView.initAdminPage = () => {
     // TODO: Call the Handlebars .compile() method, which will return a function for you to use where needed.
-    // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since we are then calling "template" below.
+        const template = Handlebars.compile($('#author-template').text());
 
-    // REVIEW: We use .forEach() here because we are relying on the side-effects of the callback function: appending to the DOM.
-    // The callback is not required to return anything.
+        // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since we are then calling "template" below.
+    
+        // REVIEW: We use .forEach() here because we are relying on the side-effects of the callback function: appending to the DOM.
+        // The callback is not required to return anything.
         app.Article.numWordsByAuthor().forEach(stat => $('.author-stats').append(template(stat)));
 
         // REVIEW: Simply write the correct values to the page:
