@@ -67,7 +67,7 @@
     Article.allAuthors = () => {
         return Article.all
             .map(articleObject => articleObject.author)
-            .reduce((acc, num) => acc.includes(num) ? acc : acc.concat([num]), []);
+            .reduce((list, currentAuthor) => list.includes(currentAuthor) ? list : list.concat([currentAuthor]), []);
     };
     
     // OR
