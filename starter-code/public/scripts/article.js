@@ -1,6 +1,6 @@
 'use strict';
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
+// TODOne: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'Article' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object via `(window.app || window.app = {})`.
@@ -25,7 +25,7 @@
         this.template = Handlebars.compile($('#article-template').text());
     }
 
-    Article.all = [];
+    // Article.all = [];
 
     Article.prototype.toHtml = function() {
         return this.template(this);
@@ -34,17 +34,16 @@
     Article.loadAll = rawData => {
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODO: Refactor this .forEach() code, by using a .map() call instead, 
-    // since what we are trying to accomplish is the transformation of one collection 
-    // into another. Remember that we can set variables equal to the result of functions. 
-    // So if we set a variable equal to the result of a .map(), it will be our transformed array.
-    // There is **no** need to push to anything!
+        // TODOne: Refactor this .forEach() code, by using a .map() call instead, 
+        // since what we are trying to accomplish is the transformation of one collection 
+        // into another. Remember that we can set variables equal to the result of functions. 
+        // So if we set a variable equal to the result of a .map(), it will be our transformed array.
+        // There is **no** need to push to anything!
 
-    /* OLD forEach():
+ 
+        Article.all = rawData.map(articleObject => new Article(articleObject));
 
-    rawData.forEach(articleObject => Article.all.push(new Article(articleObject)))
 
-    */
 
     };
 
@@ -53,7 +52,8 @@
             .then(rawData => {
                 Article.all = rawData.map(rawData => new Article(rawData));
                 if (callback) callback();
-            });
+            })
+            .catch(console.log);
     };
 
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
