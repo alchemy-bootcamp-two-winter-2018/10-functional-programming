@@ -72,7 +72,7 @@
     Article.allAuthors = () => {
         return Article.all
         .map(articleObject => articleObject.author)
-        .reduce((acc, author) => acc + author);
+        .reduce((acc, num) => acc + num);
     };
 
     Article.numWordsByAuthor = () => {
