@@ -136,7 +136,7 @@
     };
 
     articleView.initAdminPage = () => {
-    // TODO: Call the Handlebars .compile() method, which will return a function for you to use where needed.
+    // TODOne: Call the Handlebars .compile() method, which will return a function for you to use where needed.
         const template = Handlebars.compile($('#author-template').text());
 
         // Make sure you assign the result of your Handlebars.compile call to a variable called "template", since we are then calling "template" below.
