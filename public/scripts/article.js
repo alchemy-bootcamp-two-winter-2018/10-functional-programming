@@ -70,6 +70,11 @@
             .map(articleObject => articleObject.author)
             .reduce((acc, num) => acc.includes(num) ? acc : acc.concat([num]), []);
     };
+    
+    // OR
+    // Article.allAuthors = () => {
+    //     return [...new Set(Article.all.map(articleObject => articleObject.author))];
+    // };
 
     Article.numWordsByAuthor = () => {
         return Article.allAuthors()
