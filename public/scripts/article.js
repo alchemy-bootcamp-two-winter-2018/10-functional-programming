@@ -71,7 +71,7 @@
 
     Article.numWordsByAuthor = () => {
         return Article.allAuthors().map(author => {
-            // TODO: Transform each author string into an object with properties for:
+            // TODOne: Transform each author string into an object with properties for:
             //    1. the author's name, 
             return {
                 name: author,
