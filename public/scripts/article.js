@@ -63,7 +63,7 @@
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
         return Article.all
-        .map(articleObject => articleObject.body.match)
+        .map(articleObject => articleObject.body.match(/[\w\d]+/gi).length)
         .reduce((acc, num) => acc + num);
     };
 
