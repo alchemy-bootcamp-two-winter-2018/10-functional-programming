@@ -26,6 +26,9 @@ app.use(express.static('./public'));
 
 
 /** Data API Routes **/
+app.get('/new', (request, response) => {
+    response.sendFile('new.html', {root: './public'});
+});
 
 // (R)ead list of articles
 app.get('/articles', (request, response) => {
