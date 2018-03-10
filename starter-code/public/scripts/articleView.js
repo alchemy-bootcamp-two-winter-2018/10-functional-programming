@@ -1,6 +1,6 @@
 'use strict';
 
-// TODO: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
+// TODOne: Wrap the contents of this file, except for the preceding 'use strict' declararion, in an IIFE.
 // Give the IIFE a parameter called 'module'.
 // At the very end of the code, but still inside the IIFE, attach the 'articleView' object to 'module'.
 // Where the IIFE is invoked, pass in the global 'app' object via `(window.app || window.app = {})`.
@@ -8,7 +8,7 @@
 // There are not separate instructions for those; you'll need to debug and find them on your own.
 (function(module) {
     const Article = module.Article;
-    const articleView = module.articleView;
+    const articleView = {};
 
     articleView.populateFilters = () => {
         $('article').each(function() {
@@ -92,10 +92,9 @@
     };
 
     articleView.create = () => {
-        let article;
         $('#articles').empty();
 
-        article = new Article({
+        const article = new Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
