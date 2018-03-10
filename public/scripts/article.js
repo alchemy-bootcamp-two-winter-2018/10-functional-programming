@@ -56,9 +56,8 @@
     //    array1.map(x => x * 2);
     
     Article.numWordsAll = () => {
-        return Article.all.map(articleObject => {
-            return articleObject.body.match(/\b\w+/g).length;
-        })
+        return Article.all
+            .map(articleObject => articleObject.body.match(/\b\w+/g).length)
             .reduce((acc, num) => acc + num);
     };
     
@@ -73,17 +72,28 @@
     };
 
     Article.numWordsByAuthor = () => {
-        return Article.allAuthors().map(author => {
-            // TODO: Transform each author string into an object with properties for:
-            //    1. the author's name, 
-            //    2. the total number of words across all articles written by the specified author.
+        return Article.allAuthors()
+            .map(author => {
+                return {
+                    name: author,
+                    totalWords: findTotalWords(author)
+                };
+            });
 
-            // HINT: This .map() should be set up to return an object literal with two properties.
-            // Inside the map, the first property should be pretty straightforward, but you will 
-            // need to chain some combination of .filter(), .map(), and .reduce() to get the value 
-            // for the second property!
+        function findTotalWords(author) {
+            return Article.all
+                .filter(articleObject => articleObject.author === author)
+                .map(articleObject => articleObject.body.match(/\b\w+/g).length)
+                .reduce((acc, num) => acc + num);
+        }
+        // TODOne: Transform each author string into an object with properties for:
+        //    1. the author's name, 
+        //    2. the total number of words across all articles written by the specified author.
 
-        });
+        // HINT: This .map() should be set up to return an object literal with two properties.
+        // Inside the map, the first property should be pretty straightforward, but you will 
+        // need to chain some combination of .filter(), .map(), and .reduce() to get the value 
+        // for the second property!
     };
 
     Article.truncateTable = callback => {
