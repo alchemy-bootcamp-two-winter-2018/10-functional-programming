@@ -51,9 +51,9 @@
     <script src="/scripts/articleView.js"></script>
     <!-- TODOne: Due to changes in article.js and articleView.js to attach their interior objects to a global 'app' object, we need to make changes to the contents of the following <script> tag: -->
     <script>
-      // TODO: After we fetch and load all the articles, what view function do we want to run next?
+      // TODOne: After we fetch and load all the articles, what view function do we want to run next?
       // Let's pass in a callback function, to determine what happens AFTER all articles are loaded.
-      app.Article.fetchAll();
+      app.Article.fetchAll(app.articleView.initAdminPage());
     </script>
   </body>
 </html>
