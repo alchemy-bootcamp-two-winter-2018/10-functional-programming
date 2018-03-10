@@ -8,8 +8,9 @@
 // There are not separate instructions for those; you'll need to debug and find them on your own.
 (function (module) {
 
-    let articleView = {};
-    
+    const articleView = {};
+    const Article = module.Article;
+
     articleView.populateFilters = () => {
         $('article').each(function() {
             if (!$(this).hasClass('template')) {
