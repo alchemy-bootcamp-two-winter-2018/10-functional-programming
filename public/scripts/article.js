@@ -41,7 +41,7 @@
         // So if we set a variable equal to the result of a .map(), it will be our transformed array.
         // There is **no** need to push to anything!
 
-        Article.all = rawData.map(articleObject => new Article(articleObject));
+        Article.all = (rawData.map(articleObject => new Article(articleObject)));
 
         /* OLD forEach():
 
@@ -59,24 +59,27 @@
             });
     };
 
-    // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
+    // TODOne?: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all
-        .map(articleObject => articleObject.body.match(/[\w\d]+/gi).length)
+        return Article.all.map(articleObject => articleObject.body.match(/[\w\d]+/gi).length)
         .reduce((acc, num) => acc + num);
     };
 
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
-    Article.allAuthors = () => {
-        return Article.all
-        .map(articleObject => articleObject.author)
-        .reduce((acc, num) => acc + num);
-    };
+    // Article.allAuthors = () => {
 
-    Article.numWordsByAuthor = () => {
-        return Article.allAuthors().map(author => {
+    //     function onlyUnique(value, index, self) { 
+    //         return self.indexOf(value) === index;
+    //     };
+
+    //     return Article.all.map(articleObject => articleObject.filter(onlyUnique))
+    //     .reduce((acc, num) => acc + num);
+    // };
+
+    // Article.numWordsByAuthor = () => {
+    //     return Article.allAuthors().map(author => {
         // TODO: Transform each author string into an object with properties for:
         //    1. the author's name, 
         //    2. the total number of words across all articles written by the specified author.
@@ -86,8 +89,8 @@
         // need to chain some combination of .filter(), .map(), and .reduce() to get the value 
         // for the second property!
 
-        });
-    };
+    //     });
+    // };
 
     Article.truncateTable = callback => {
         $.ajax({
