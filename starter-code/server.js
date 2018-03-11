@@ -2,8 +2,8 @@
 
 /* Environment variables */
 const PORT = process.env.PORT || 3000;
-// TODO: Don't forget to set your own conString!
-const DATABASE_URL = 'postgres://localhost:5432/kilovolt';
+// TODONE: Don't forget to set your own conString!
+const DATABASE_URL = 'postgres://postgres:33loki3s@localhost:5432/kilovolt';
 
 /* Required Dependencies */
 const pg = require('pg');
