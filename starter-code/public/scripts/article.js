@@ -58,15 +58,20 @@
     // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map(article => article.body.match(/\b\w+/g).length).reduce((sum, num) => sum + num);
+        return Article.numWordsPerArticle(Article.all);
     };
 
-    
+    Article.numWordsPerArticle = (articles) => {
+        return articles
+            .map(article => article.body.match(/\b\w+/g).length)
+            .reduce((sum, num) => sum + num);
+    };
 
     // TODOne: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        return Article.all.map(article => article.author)
+        return Article.all
+            .map(article => article.author)
             .reduce((uniqAuthors, author) => {
                 if (!uniqAuthors.includes(author)) {
                     uniqAuthors.push(author);
@@ -82,8 +87,9 @@
             //    2. the total number of words across all articles written by the specified author.
             return {
                 name: author,
-                wordCount: Article.all.filter(article => article.author === author)
-                    .map(article => article.body.match(/\b\w+/g).length).reduce((sum, num) => sum + num)
+                wordCount: Article.numWordsPerArticle(
+                    Article.all.filter(article => article.author === author)
+                )
             };
 
             // HINT: This .map() should be set up to return an object literal with two properties.
