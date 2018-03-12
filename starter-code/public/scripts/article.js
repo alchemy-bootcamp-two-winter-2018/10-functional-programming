@@ -78,7 +78,7 @@
                 name: author,
                 words: Article.all.filter(articles => articles.author === author).map(articles => articles.body).reduce((acc,body) => acc + body.match(/\b\w+/g).length,0)
             };
-            // TODO: Transform each author string into an object with properties for:
+            // TODOne: Transform each author string into an object with properties for:
             //    1. the author's name, 
             //    2. the total number of words across all articles written by the specified author.
 
@@ -104,7 +104,7 @@
     };
 
     Article.prototype.insertRecord = function(callback) {
-    // REVIEW: Why can't we use an arrow function here for .insertRecord()?
+    // REVIEW: Why can't we use an arrow function here for .insertRecord()? - To preserve 'this' for the article data
         $.post('/articles', {author: this.author, authorUrl: this.authorUrl, body: this.body, category: this.category, publishedOn: this.publishedOn, title: this.title})
             .then(console.log)
             .then(callback);
