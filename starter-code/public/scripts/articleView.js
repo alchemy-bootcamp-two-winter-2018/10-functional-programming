@@ -91,10 +91,9 @@
     };
 
     articleView.create = () => {
-        let article;
         $('#articles').empty();
 
-        article = new app.Article({
+        const article = new app.Article({
             title: $('#article-title').val(),
             author: $('#article-author').val(),
             authorUrl: $('#article-author-url').val(),
