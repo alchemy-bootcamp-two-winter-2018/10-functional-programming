@@ -35,9 +35,9 @@
   Article.loadAll = rawData => {
     rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-    // TODOne: Refactor this .forEach() code, by using a .map() call instead, 
-    // since what we are trying to accomplish is the transformation of one collection 
-    // into another. Remember that we can set variables equal to the result of functions. 
+    // TODOne: Refactor this .forEach() code, by using a .map() call instead,
+    // since what we are trying to accomplish is the transformation of one collection
+    // into another. Remember that we can set variables equal to the result of functions.
     // So if we set a variable equal to the result of a .map(), it will be our transformed array.
     // There is **no** need to push to anything!
 
@@ -59,34 +59,38 @@
       });
   };
 
-  // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
+  // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles.
   // Yes, you have to do it this way.
   Article.numWordsAll = () => {
-    return Article.all.map(articleObject => articleObject.body.match(/[\w\d]+/gi).length)
+    return Article.all
+      .map(a => a.body.match(/[\w\d]+/gi).length)
       .reduce((acc, num) => acc + num);
   };
 
-  // TODOne?: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
+  // TODOne: Chain together a .map() and a .reduce() call to produce an array of unique author names.
   // You will probably need to use the optional accumulator argument in your reduce call.
   Article.allAuthors = () => {
 
-    function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
-    }
-
-    return Article.all.map(articleObject => articleObject.author.filter(onlyUnique))
-      .reduce((acc, num) => acc + num);
+    return Array.from(
+      new Set(Article.all.map((a) => a.author))
+    );
   };
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for:
-      //    1. the author's name, 
+      // TODOne: Transform each author string into an object with properties for:
+      //    1. the author's name,
       //    2. the total number of words across all articles written by the specified author.
-
+      return {
+        name: author,
+        wordCount: Article.all
+          .filter(article => article.author === author)
+          .map(a => a.body.match(/[\w\d]+/gi).length)
+          .reduce((acc, num) => acc + num),
+      };
       // HINT: This .map() should be set up to return an object literal with two properties.
-      // Inside the map, the first property should be pretty straightforward, but you will 
-      // need to chain some combination of .filter(), .map(), and .reduce() to get the value 
+      // Inside the map, the first property should be pretty straightforward, but you will
+      // need to chain some combination of .filter(), .map(), and .reduce() to get the value
       // for the second property!
 
     });
@@ -99,7 +103,7 @@
     })
     // REVIEW: Check out this clean syntax for just passing our callback function
     // as the promise result handler!
-    // The reason we can do this has to do with the way Promise.prototype.then() works. 
+    // The reason we can do this has to do with the way Promise.prototype.then() works.
     // It's a little outside the scope of 301 material, but feel free to research!
       .then(console.log)
       .then(callback);
