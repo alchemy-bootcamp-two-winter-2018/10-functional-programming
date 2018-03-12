@@ -59,7 +59,8 @@
     // TODONE: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
-        return Article.all.map(article => article.body.match(/\b\w+/g).length)
+        return Article.all
+            .map(article => article.body.match(/\b\w+/g).length)
             .reduce((numWords, wordCount) => numWords + wordCount);
     };
 
@@ -81,7 +82,8 @@
         // for the second property!
             return {
                 name: author,
-                wordCount: (Article.all.filter(article => article.author === author))
+                wordCount: (Article.all
+                    .filter(article => article.author === author))
                     .map(article => article.body.match(/\b\w+/g).length)
                     .reduce((numWords, wordCount) => numWords + wordCount)
             };
