@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="/styles/layout.css">
     <link rel="stylesheet" href="/styles/modules.css">
     <link rel="icon" type="image/x-icon" href="https://avatars2.githubusercontent.com/u/18607604?v=3&s=200">
-    <!-- TODO: Setup a template for each row of the Author Stats section of this page: -->
-
+    <!-- TODOne: Setup a template for each row of the Author Stats section of this page: -->
+    <script id="stats-template" type="text/x-handlebars-template">
+      <li>{{author}} has written {{app.Article.numWordsByAuthor()}}</li>
+    </script>
   </head>
   <body>
     <header class="site-header clearfix">

@@ -59,27 +59,29 @@
             });
     };
 
-    // TODOne?: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
+    // TODOne: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     Article.numWordsAll = () => {
         return Article.all.map(articleObject => articleObject.body.match(/[\w\d]+/gi).length)
         .reduce((acc, num) => acc + num);
     };
 
-    // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
+    // TODOne?: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
-    // Article.allAuthors = () => {
+    Article.allAuthors = () => {
 
-    //     function onlyUnique(value, index, self) { 
-    //         return self.indexOf(value) === index;
-    //     };
+        function onlyUnique(value, index, self) { 
+            return self.indexOf(value) === index;
+        };
 
-    //     return Article.all.map(articleObject => articleObject.filter(onlyUnique))
-    //     .reduce((acc, num) => acc + num);
-    // };
+        const authors = Article.all.body; 
 
-    // Article.numWordsByAuthor = () => {
-    //     return Article.allAuthors().map(author => {
+        return Article.all.map(articleObject => articleObject.author.filter(onlyUnique))
+        .reduce((acc, num) => acc + num);
+    };
+
+    Article.numWordsByAuthor = () => {
+        return Article.allAuthors().map(author => {
         // TODO: Transform each author string into an object with properties for:
         //    1. the author's name, 
         //    2. the total number of words across all articles written by the specified author.
@@ -89,8 +91,8 @@
         // need to chain some combination of .filter(), .map(), and .reduce() to get the value 
         // for the second property!
 
-    //     });
-    // };
+        });
+    };
 
     Article.truncateTable = callback => {
         $.ajax({
