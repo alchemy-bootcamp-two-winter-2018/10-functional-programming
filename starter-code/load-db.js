@@ -7,7 +7,7 @@ const util = require('util');
 const promisify = util.promisify;
 const readFile = promisify(fs.readFile);
 
-const DATABASE_URL = 'postgres://localhost:5432/kilovolt';
+const DATABASE_URL = 'postgres://postgres:Alchemy@localhost:5432/kilovolt';
 const client = new Client(DATABASE_URL);
 client.connect();
 client.on('error', err => {
