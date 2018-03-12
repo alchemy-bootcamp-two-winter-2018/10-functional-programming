@@ -54,21 +54,35 @@
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     console.log('Article.loadall', Article.loadAll());
+    
     Article.numWordsAll = () => {
-        return Article.all.map(Article.all.body.match(/\b\w+/g).length).reduce((a, b) => a + b, 0);
+        return Article.numwordsPerArticle(Article.all);
+    };
+
+    Article.numWordsPerArticle = (articles) => {
+        return articles
+            .map(article => article.body.match(/\b\w+/g).length)
+            .reduce((a, b) => a + b, 0);
     };
     console.log(Article.numWordsAll());
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        return Article.all.map(Article.all.name.match(/\b\w+/g).reduce((uniqueNames, names) => names !== names));
+        return Article.all
+            .map(article => article.name)
+            .reduce((singleName, article) => {
+               if (singleName.indexOf === -1) {
+                   singleName.push();
+               }
+            },[]);
     };
     
     Article.numWordsByAuthor = () => {
         return Article.allAuthors().map(author => {
-
-                name: author.name
-
+            return {
+                name: author,
+                wordCount: Article.numwordsPerArticle(Article.all.filter(article => article.author === author))
+            };
             // TODO: Transform each author string into an object with properties for:
             //    1. the author's name, 
             //    2. the total number of words across all articles written by the specified author.
