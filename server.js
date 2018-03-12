@@ -14,7 +14,7 @@ const app = express();
 const client = new pg.Client(DATABASE_URL);
 client.connect();
 client.on('error', err => {
-    console.error(err);
+  console.error(err);
 });
 
 /* Express Middleware */
@@ -29,7 +29,7 @@ app.use(express.static('./public'));
 
 // (R)ead list of articles
 app.get('/articles', (request, response) => {
-    client.query(`
+  client.query(`
         SELECT *, 
             articles.published_on as "publishedOn",
             authors.author_url as "authorUrl"
@@ -37,109 +37,109 @@ app.get('/articles', (request, response) => {
         INNER JOIN authors
         ON articles.author_id=authors.author_id;
     `)
-        .then(result => response.send(result.rows))
-        .catch(console.error);
+    .then(result => response.send(result.rows))
+    .catch(console.error);
 });
 
 // (C)reate new article, and possibly author
 app.post('/articles', (request, response) => {
-    const body = request.body;
+  const body = request.body;
 
-    resolveAuthor(body.author, body.authorUrl)
-        .then(author_id => {
-            return client.query(`
+  resolveAuthor(body.author, body.authorUrl)
+    .then(author_id => {
+      return client.query(`
                 INSERT INTO
                 articles(author_id, title, category, published_on, body)
                 VALUES ($1, $2, $3, $4, $5);
             `,
-            [
-                author_id,
-                body.title,
-                body.category,
-                body.publishedOn,
-                body.body
-            ]);
-        })
-        .then(() => {
-            response.send('insert complete');
-        })
-        .catch(console.error);
+      [
+        author_id,
+        body.title,
+        body.category,
+        body.publishedOn,
+        body.body
+      ]);
+    })
+    .then(() => {
+      response.send('insert complete');
+    })
+    .catch(console.error);
 });
 
 // helper function to read or create author based on name
 function resolveAuthor(author, authorUrl) {
-    return client.query(
-        `SELECT author_id FROM authors WHERE author=$1`,
-        [author]
-    )
-        .then(result => {
-            if(result.rows.length > 0) return result;
+  return client.query(
+    `SELECT author_id FROM authors WHERE author=$1`,
+    [author]
+  )
+    .then(result => {
+      if(result.rows.length > 0) return result;
 
-            return client.query(`
+      return client.query(`
                 INSERT INTO authors(author, author_url) 
                 VALUES($1, $2)
                 RETURNING author_id
             `,
-            [author, authorUrl]
-            );
-        })
-        .then(result => result.rows[0].author_id);
+      [author, authorUrl]
+      );
+    })
+    .then(result => result.rows[0].author_id);
 }
 
 // (U)pdate article (and author)
 app.put('/articles/:id', (request, response) => {
-    const body = request.body;
-    const params = request.params;
+  const body = request.body;
+  const params = request.params;
 
-    Promise.all([
-        client.query(`
+  Promise.all([
+    client.query(`
             UPDATE authors
             SET author=$1, author_url=$2
             WHERE author_id=$3
         `,
-        [
-            body.author,
-            body.authorUrl,
-            body.author_id
-        ]),
+    [
+      body.author,
+      body.authorUrl,
+      body.author_id
+    ]),
 
-        client.query(`
+    client.query(`
                 UPDATE articles
                 SET author_id=$1, title=$2, category=$3, published_on=$4, body=$5
                 WHERE article_id=$6
         `,
-        [
-            body.author_id,
-            body.title,
-            body.category,
-            body.publishedOn,
-            body.body,
-            params.id
-        ])
+    [
+      body.author_id,
+      body.title,
+      body.category,
+      body.publishedOn,
+      body.body,
+      params.id
     ])
-        .then(() => response.send('Update complete'))
-        .catch(console.error);
+  ])
+    .then(() => response.send('Update complete'))
+    .catch(console.error);
 });
 
 // (D)estroy an article
 app.delete('/articles/:id', (request, response) => {
-    client.query(
-        `DELETE FROM articles WHERE article_id=$1;`,
-        [request.params.id]
-    )
-        .then(() => response.send('Delete complete'))
-        .catch(console.error);
+  client.query(
+    `DELETE FROM articles WHERE article_id=$1;`,
+    [request.params.id]
+  )
+    .then(() => response.send('Delete complete'))
+    .catch(console.error);
 });
 
 // (D)estroy ALL articles
 app.delete('/articles', (request, response) => {
-    client.query(
-        `DELETE FROM articles`
-    )
-        .then(() => response.send('Full Delete Complete'))
-        .catch(console.error);
+  client.query(
+    `DELETE FROM articles`
+  )
+    .then(() => response.send('Full Delete Complete'))
+    .catch(console.error);
 });
 
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}!`);
+  console.log(`Server started on port ${PORT}!`);
 });
