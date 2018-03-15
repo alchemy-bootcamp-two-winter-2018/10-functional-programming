@@ -26,7 +26,6 @@
     };
     
     Article.loadAll = rawData => {
-        console.log(rawData);
         rawData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
         
         // TODONE: Refactor this .forEach() code, by using a .map() call instead, 
@@ -34,24 +33,22 @@
         // into another. Remember that we can set variables equal to the result of functions. 
         // So if we set a variable equal to the result of a .map(), it will be our transformed array.
         // There is **no** need to push to anything!
-        
-        
-        Article.all = rawData.map(articleObject => {return new app.Article(articleObject)});
+        Article.all = rawData.map(articleObject => {return new app.Article(articleObject);});
     };
     
     Article.fetchAll = callback => {
         $.get('/articles')
-        .then(result => {
-            Article.loadAll(result);
-            callback();
-        });
+            .then(result => {
+                Article.loadAll(result);
+                callback();
+            });
     };
     
     // TODO: Chain together a .map() and a .reduce() call to get a rough count of all words in all articles. 
     // Yes, you have to do it this way.
     
     Article.numWordsAll = () => {
-        return Article.numwordsPerArticle(Article.all);
+        return Article.numWordsPerArticle(Article.all);
     };
 
     Article.numWordsPerArticle = (articles) => {
@@ -63,19 +60,19 @@
     // You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
         return Article.all
-            .map(article => article.name)
+            .map(article => article.author)
             .reduce((singleName, article) => {
-               if (singleName.indexOf === -1) {
-                   singleName.push();
-               }
+                if (singleName.indexOf === -1) {
+                    singleName.push();
+                }
             },[]);
     };
     
     Article.numWordsByAuthor = () => {
-        return Article.allAuthors().map(author => {
+        return app.Article.allAuthors().map(author => {
             return {
                 name: author,
-                wordCount: Article.numwordsPerArticle(Article.all.filter(article => article.author === author))
+                wordCount: Article.numWordsPerArticle(Article.all.filter(article => article.author === author))
             };
             // TODO: Transform each author string into an object with properties for:
             //    1. the author's name, 
@@ -98,13 +95,13 @@
         // as the promise result handler!
         // The reason we can do this has to do with the way Promise.prototype.then() works. 
         // It's a little outside the scope of 301 material, but feel free to research!
-        .then(callback);
+            .then(callback);
     };
     
     Article.prototype.insertRecord = function(callback) {
         // REVIEW: Why can't we use an arrow function here for .insertRecord()?
         $.post('/articles', {author: this.author, authorUrl: this.authorUrl, body: this.body, category: this.category, publishedOn: this.publishedOn, title: this.title})
-        .then(callback);
+            .then(callback);
     };
     
     Article.prototype.deleteRecord = function(callback) {
@@ -112,7 +109,7 @@
             url: `/articles/${this.article_id}`,
             method: 'DELETE'
         })
-        .then(callback);
+            .then(callback);
     };
     
     Article.prototype.updateRecord = function(callback) {
@@ -129,8 +126,8 @@
                 author_id: this.author_id
             }
         })
-        .then(callback);
-    }
+            .then(callback);
+    };
     
     module.Article = Article;
     
