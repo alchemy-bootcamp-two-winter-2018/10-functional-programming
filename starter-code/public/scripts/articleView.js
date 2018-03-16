@@ -152,4 +152,5 @@
     };
 
     module.articleView = articleView;
+    module.Article = Article;
 })(window.app || (window.app = {}));

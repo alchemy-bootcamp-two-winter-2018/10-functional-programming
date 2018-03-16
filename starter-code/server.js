@@ -24,7 +24,6 @@ app.use(express.urlencoded({extended: true}));
 // serve static assets:
 app.use(express.static('./public'));
 
-
 /** Data API Routes **/
 
 // (R)ead list of articles

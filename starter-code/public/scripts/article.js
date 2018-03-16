@@ -67,7 +67,14 @@
     // TODONE: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        return Array.from(new Set(Article.all.map(article => article.author)));
+        return Article.all
+            .map(article => article.author)
+            .reduce((uniqueAuthors, author) => {
+                if (!uniqueAuthors.includes(author)) {
+                    uniqueAuthors.push(author);
+                }
+                return uniqueAuthors;
+            }, []);
     };
 
     Article.numWordsByAuthor = () => {
