@@ -8,6 +8,7 @@
 // There are not separate instructions for those; you'll need to debug and find them on your own.
 (function(module){
     
+    const Article = module.Article;
     const articleView = {};
 
     articleView.populateFilters = () => {
