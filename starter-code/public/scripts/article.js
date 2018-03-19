@@ -33,13 +33,14 @@
         // into another. Remember that we can set variables equal to the result of functions. 
         // So if we set a variable equal to the result of a .map(), it will be our transformed array.
         // There is **no** need to push to anything!
-        Article.all = rawData.map(articleObject => {return new app.Article(articleObject);});
+        Article.all = rawData.map(articleObject => new Article(articleObject));
     };
     
     Article.fetchAll = callback => {
         $.get('/articles')
-            .then(result => {
-                Article.loadAll(result);
+            .then(results => {
+                Article.loadAll(results);
+                console.log(results);
                 callback();
             });
     };
@@ -48,31 +49,27 @@
     // Yes, you have to do it this way.
     
     Article.numWordsAll = () => {
-        return Article.numWordsPerArticle(Article.all);
-    };
+        return Article.all
+            .map(a => a.body.match(/[\w\d]+/gi).length)
+            .reduce((acc, num) => acc + num);
 
-    Article.numWordsPerArticle = (articles) => {
-        return articles
-            .map(article => article.body.match(/\b\w+/g).length)
-            .reduce((a, b) => a + b, 0);
     };
     // TODO: Chain together a .map() and a .reduce() call to produce an array of unique author names. 
     // You will probably need to use the optional accumulator argument in your reduce call.
     Article.allAuthors = () => {
-        return Article.all
-            .map(article => article.author)
-            .reduce((singleName, article) => {
-                if (singleName.indexOf === -1) {
-                    singleName.push();
-                }
-            },[]);
+        return Array.from(
+            new Set(Article.all.map((a) => a.author))
+        );
     };
-    
+
     Article.numWordsByAuthor = () => {
-        return app.Article.allAuthors().map(author => {
+        return Article.allAuthors().map(author => {
             return {
                 name: author,
-                wordCount: Article.numWordsPerArticle(Article.all.filter(article => article.author === author))
+                wordCount:Article.all
+                    .filter(article => article.author === author)
+                    .map(a => a.body.match(/[\w\d]+/gi).length)
+                    .reduce((acc, num) => acc + num),
             };
             // TODO: Transform each author string into an object with properties for:
             //    1. the author's name, 
