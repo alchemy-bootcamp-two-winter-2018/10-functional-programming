@@ -2,7 +2,7 @@
 
 /* Environment variables */
 const PORT = process.env.PORT || 3000;
-// TODO: Don't forget to set your own conString!
+// TODOne: Don't forget to set your own conString!
 const DATABASE_URL = 'postgres://localhost:5432/kilovolt';
 
 /* Required Dependencies */
@@ -26,6 +26,13 @@ app.use(express.static('./public'));
 
 
 /** Data API Routes **/
+app.get('/new', (request, response) => {
+    response.sendFile('new.html', {root: './public'});
+});
+
+app.get('/admin', (request, response) => {
+    response.sendFile('admin.html', {root: './public'});
+});
 
 // (R)ead list of articles
 app.get('/articles', (request, response) => {
